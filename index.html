@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title></title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="css/style.css" rel="stylesheet">
+   </head>
+   <body>
+      <h1>Socket Test</h1>
+      <p id="message">Default message</p>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+
+      <script>
+         const socket = io.connect('/')
+         socket.emit('retrieveMessages')
+         socket.emit('postMessage', {user_id: 1, message_text: "test3"})
+         socket.on('newMessages', function(data) {
+            console.log(data)
+         })
+         
+      </script>
+   </body>
+</html>
