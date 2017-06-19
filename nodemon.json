@@ -1,0 +1,3 @@
+{
+   "ignore": ["src/*", "build/*", "node_modules/*", "e2e/*"]
+}
