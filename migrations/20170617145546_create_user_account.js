@@ -1,6 +1,6 @@
 
 exports.up = function(knex, Promise) {
-  return knex.schema.createTableIfNotExists('user_account', table => {
+  return knex.schema.createTableIfNotExists('private.user_account', table => {
       table.increments()
       table.string('first_name')
       table.string('last_name')
@@ -14,5 +14,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists('user_account')
+  return knex.schema.dropTableIfExists('private.user_account')
 };

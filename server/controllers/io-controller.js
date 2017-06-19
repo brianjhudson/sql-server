@@ -20,9 +20,9 @@ function emitMessages(messages, io, socket) {
 }
 
 function retrieveMessages(io, socket) {
-   return knex('chat_message')
-   .join('user_account', 'user_account.id', 'chat_message.user_id')
-   .select('user_account.first_name', 'user_account.github_avatar', 'chat_message.id', 'chat_message.message_date', 'chat_message.message_text')
+   return knex('private.chat_message')
+   .join('private.user_account', 'private.user_account.id', 'private.chat_message.user_id')
+   .select('first_name', 'last_name', 'github_avatar', 'private.chat_message.id', 'message_date', 'message_text')
    .then(messages => {
       emitMessages(messages, io, socket)
    })
@@ -32,14 +32,14 @@ function retrieveMessages(io, socket) {
 }
 
 function postMessage(io, data) {
-   return knex('chat_message')
+   return knex('private.chat_message')
    .returning('*')
    .insert({user_id: data.user_id, message_text: data.message_text, message_date: new Date()})
    .then(messages => {
-      knex('chat_message')
-      .join('user_account', 'user_account.id', 'chat_message.user_id')
-      .where({'chat_message.id': messages[0].id})
-      .select('user_account.first_name', 'user_account.github_avatar', 'chat_message.id', 'chat_message.message_date', 'chat_message.message_text')
+      knex('private.chat_message')
+      .join('private.user_account', 'private.user_account.id', 'private.chat_message.user_id')
+      .where({'private.chat_message.id': messages[0].id})
+      .select('first_name', 'github_avatar', 'private.chat_message.id', 'message_date', 'message_text')
       .then(fullMessages => {
          emitMessages(fullMessages, io)
       })

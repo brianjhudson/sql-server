@@ -1,6 +1,6 @@
 
 exports.up = function(knex, Promise) {
-  return knex.schema.createTableIfNotExists('chat_message', table => {
+  return knex.schema.createTableIfNotExists('private.chat_message', table => {
       table.increments()
       table.integer('user_id')
       table.timestamp('message_date')
@@ -11,5 +11,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-   return knex.schema.dropTableIfExists('chat_message') 
+   return knex.schema.dropTableIfExists('private.chat_message') 
 };

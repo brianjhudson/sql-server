@@ -10,13 +10,13 @@ passport.use(new GitHubStrategy({
   (accessToken, refreshToken, profile, done) => {
    const user = profile._json
    user.login = user.login.toLowerCase()
-   knex('user_account')
+   knex('private.user_account')
     .where({github_username: user.login})
     .then(users => {
       if (users.length && users[0].github_id) {
          return done(null, users[0])
       } else if (users.length) {
-         knex('user_account')
+         knex('private.user_account')
          .where({github_username: user.login})
          .returning('*')
          .update({github_id: user.id, github_avatar: user.avatar_url})
@@ -27,7 +27,7 @@ passport.use(new GitHubStrategy({
             return done(err, false)
          })
       } else {
-         knex('user_account')
+         knex('private.user_account')
          .returning('*')
          .insert({github_id: user.id, github_username: user.login, github_avatar: user.avatar_url})
          .then(users => {
