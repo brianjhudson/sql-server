@@ -1,4 +1,5 @@
 const knex = require('../config/knex')
+const _ = require('underscore')
 
 module.exports = {
    getTables,
@@ -8,9 +9,11 @@ module.exports = {
 function getTables(req, res, next) {
    knex('information_schema.columns')
    .where({'table_schema': 'public'})
+   .andWhere('table_name', 'not in', ['knex_migrations', 'knex_migrations_lock', 'chat_message', 'user_account'])
    .select('table_name', 'column_name', 'data_type')
    .then(results => {
-      res.send(results)
+      const newResults = _.groupBy(results, 'table_name')
+      res.send(newResults)
    })
    .catch(err => {
       next(err)

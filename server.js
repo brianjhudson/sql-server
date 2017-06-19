@@ -16,9 +16,6 @@ const httpServer = http.Server(app)
 const io = socket_io(httpServer)
 require('./server/routes/io-routes')(io)
 
-app.get('/', (req, res) => {
-   res.sendFile(__dirname + '/index.html')
-})
 app.use(session({
    secret: process.env.SESSION_SECRET,
    resave: false,
