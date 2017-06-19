@@ -15,7 +15,7 @@ router.get('/github/callback', (req, res, next) => {
             if (err) {
                return next(err)
             }
-            return res.status(200).json(user)
+            return res.redirect('http://localhost:3000/dashboard')
          })
       }
    })(req, res, next)
