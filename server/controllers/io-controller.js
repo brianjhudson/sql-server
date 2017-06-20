@@ -22,6 +22,7 @@ function emitMessages(messages, io, socket) {
 function retrieveMessages(io, socket) {
    return knex('private.chat_message')
    .join('private.user_account', 'private.user_account.id', 'private.chat_message.user_id')
+   .orderBy('message_date', 'asc')
    .select('first_name', 'last_name', 'github_avatar', 'private.chat_message.id', 'message_date', 'message_text')
    .then(messages => {
       emitMessages(messages, io, socket)
