@@ -22,7 +22,7 @@ app.use(session({
    resave: false,
    saveUninitialized: false
 }))
-app.use(cors())
+app.use(cors({origin: '*'}))
 app.use(json())
 
 app.use(passport.initialize());
