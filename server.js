@@ -22,7 +22,7 @@ app.use(session({
    resave: false,
    saveUninitialized: false
 }))
-app.use(cors({credentials: true, origin: ['brianjhudson.com', 'github.com']}))
+app.use(cors())
 app.use(json())
 
 app.use(passport.initialize());
