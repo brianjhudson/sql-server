@@ -15,7 +15,8 @@ router.get('/github/callback', (req, res, next) => {
             if (err) {
                return next(err)
             }
-            return res.send(req.user)
+            res.send(req.user)
+            return res.redirect('/dashboard')
          })
       }
    })(req, res, next)
