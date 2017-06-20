@@ -16,6 +16,7 @@ const httpServer = http.Server(app)
 const io = socket_io(httpServer)
 require('./server/routes/io-routes')(io)
 
+app.use(express.static(__dirname + '/build'))
 app.use(session({
    secret: process.env.SESSION_SECRET,
    resave: false,
@@ -30,6 +31,9 @@ app.use(passport.session());
 app.use('/auth', userRouter)
 app.use('/api/sql', sqlRouter)
 
+app.get('*', function(req, res) {
+   res.sendFile(__dirname + '/build/index.html')
+})
 httpServer.listen(process.env.PORT, () => {
    console.log(`SQL App Server listening on ${process.env.PORT}`)
 })
