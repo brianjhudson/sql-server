@@ -31,6 +31,6 @@ function executeQuery(req, res, next) {
       res.send(results)
    })
    .catch(err => {
-      next(err)
+      return res.status(201).json({error: true, message: err.message, position: err.position})
    })
 }
