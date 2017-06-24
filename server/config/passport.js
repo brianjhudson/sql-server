@@ -29,7 +29,11 @@ passport.use(new GitHubStrategy({
       } else {
          knex('private.user_account')
          .returning('*')
-         .insert({github_id: user.id, github_username: user.login, github_avatar: user.avatar_url})
+         .insert({
+            github_id: user.id, 
+            github_username: user.login, github_avatar: user.avatar_url,
+            recognized: false
+         })
          .then(users => {
             return done(null, users[0])
          })
