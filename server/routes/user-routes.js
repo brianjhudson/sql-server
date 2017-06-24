@@ -16,7 +16,7 @@ router.get('/github/callback', (req, res, next) => {
                return next(err)
             }
             res.send(req.user)
-            return res.redirect('/dashboard')
+            return res.redirect(process.env.REDIRECT_PATH)
          })
       }
    })(req, res, next)
