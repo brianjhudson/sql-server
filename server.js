@@ -34,9 +34,6 @@ app.use(passport.session());
 app.use('/auth', userRouter)
 app.use('/api/sql', sqlRouter)
 
-app.get('*', function(req, res) {
-   res.sendFile(__dirname + '/build/index.html')
-})
 httpServer.listen(process.env.PORT, () => {
    console.log(`SQL App Server listening on ${process.env.PORT}`)
 })
