@@ -21,9 +21,15 @@ function getTables(req, res, next) {
 
 function executeQuery(req, res, next) {
    let forbiddenCommands = ['createuser', 'database', 'role', 'private']
+   if (!req.user || !req.user.recognized) {
+      forbiddenCommands = forbiddenCommands.concat(['create', 'drop', 'update', 'delete'])
+   }
+   const query = req.body.query.toLowerCase()
    for (let cmd of forbiddenCommands) {
-      if (req.body.query.toLowerCase().split(' ').join('').includes(cmd)) {
-         return res.status(403).json({error: "You have entered a forbidden command"})
+      if (query.includes(cmd)) {
+         let message = cmd.toUpperCase() + " is a forbidden command"
+         let position = query.indexOf(cmd)
+         return res.status(200).json({error: true, message, position})
       }
    }
    knex.raw(req.body.query)
