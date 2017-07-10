@@ -1,5 +1,6 @@
 const express = require('express')
 const passport = require('passport')
+const userController = require('../controllers/user-controller')
 const router = express.Router()
 
 router.get('/github', (req, res, next) => {
@@ -24,10 +25,7 @@ router.get('/github/callback', (req, res, next) => {
    })(req, res, next)
 });
 
-router.get('/login', (req, res, next) => {
-   console.log("Hello")
-   //   console.log(req.user)
-     res.send(req.user)
-  })
+router.get('/login/:id', userController.getUser)
+router.get('/logout', userController.logoutUser)
 
 module.exports = router
