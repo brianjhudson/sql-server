@@ -19,7 +19,7 @@ router.get('/github/callback', (req, res, next) => {
             if (err) {
                return next(err)
             }
-            return res.status(200).send(user)
+            return res.redirect(process.env.REDIRECT_PATH)
          })
       }
    })(req, res, next)
