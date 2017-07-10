@@ -25,7 +25,7 @@ router.get('/github/callback', (req, res, next) => {
    })(req, res, next)
 });
 
-router.get('/login/:id', userController.getUser)
+router.get('/login', userController.getUser)
 router.get('/logout', userController.logoutUser)
 
 module.exports = router
