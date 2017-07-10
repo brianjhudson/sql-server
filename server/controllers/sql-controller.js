@@ -21,6 +21,7 @@ function getTables(req, res, next) {
 }
 
 function getQueryHistory(req, res, next) {
+   console.log(req.user)
    if (req.user && req.user.id) {
       knex('private.query_history')
       .where({user_id: req.user.id})
